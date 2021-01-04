@@ -12,16 +12,21 @@ import "./App.css";
 function App() {
   const [visible, setVisible] = useState(false);
   const [grade, setGrade] = useState(localStorage.getItem("grade"));
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState(
+    localStorage.getItem("nickname") || ""
+  );
   const currentKey = getQueryVariable("moduleKey");
   const code = getQueryVariable("code");
 
   useEffect(() => {
-    getUseInfo(code).then((res) => {
-      if (res.resultData) {
-        setNickname(res.resultData.nickname);
-      }
-    });
+    if (!nickname) {
+      getUseInfo(code).then((res) => {
+        if (res.resultData) {
+          setNickname(res.resultData.nickname);
+          localStorage.setItem("nickname", res.resultData.nickname);
+        }
+      });
+    }
   }, [code]);
 
   useEffect(() => {
