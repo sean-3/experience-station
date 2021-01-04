@@ -37,7 +37,7 @@ function App() {
         if (res.resultStatus) {
           const { appId, timestamp, nonceStr, signature } = res.resultData;
           window.wx.config({
-            debug: true,
+            //debug: true,
             appId: appId,
             timestamp: timestamp.toString(), // 必填，生成签名的时间戳
             nonceStr: nonceStr, // 必填，生成签名的随机串
