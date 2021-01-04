@@ -25,17 +25,24 @@ function App() {
   }, [code]);
 
   useEffect(() => {
-    getSignature(
-      "https://coding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com/"
-    ).then((res) => {
-      if (res.resultStatus) {
-        window.wx.config({
-          debug: true,
-          ...res.resultData,
-          jsApiList: ["scanQRCode"],
-        });
+    getSignature(encodeURIComponent(window.location.href.split("#")[0])).then(
+      (res) => {
+        if (res.resultStatus) {
+          const { appId, timestamp, nonceStr, signature } = res.resultData;
+          console.log(appId);
+          console.log(timestamp);
+          console.log(timestamp);
+          window.wx.config({
+            debug: true,
+            appId: appId,
+            timestamp: timestamp.toString(), // 必填，生成签名的时间戳
+            nonceStr: nonceStr, // 必填，生成签名的随机串
+            signature: signature, // 必填，签名
+            jsApiList: ["scanQRCode"],
+          });
+        }
       }
-    });
+    );
   }, []);
 
   let experiencedModules =
@@ -63,10 +70,6 @@ function App() {
     setVisible(false);
   };
 
-  const experiencedModuleNames = moduleList
-    .filter((i) => experiencedModules.includes(i.key))
-    .map((n) => n.title);
-
   return (
     <div className="App">
       <div className="App-footer">东莞城市服务驿站</div>
@@ -93,12 +96,7 @@ function App() {
               请至前台扫描二维码获取
             </div>
             <div className="qrcode-image">
-              <QRCode
-                size={200}
-                value={`${nickname}#${experiencedModuleNames.join(
-                  "#"
-                )}#${grade}`}
-              />
+              <QRCode size={200} value={`${nickname}#${grade}`} />
             </div>
           </div>
         ) : (
