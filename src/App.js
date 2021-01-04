@@ -121,7 +121,7 @@ function App() {
                         scanType: ["qrCode", "barCode"],
                         success: function (res) {
                           const resultStr = decodeURIComponent(res.resultStr);
-                          const k= getQueryVariable(resultStr.split("?")[1])
+                          const k= getQueryVariable('moduleKey', resultStr.split("?")[2])
                           updateModules(k)
                         },
                       });
