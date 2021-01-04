@@ -58,11 +58,12 @@ function App() {
         {grade ? (
           <div className="qrcode-container">
             <div className="qrcode-tip">
-              完整的体验报告已生成 请至前台扫描二维码获取
+              完整的体验报告已生成 <br />
+              请至前台扫描二维码获取
             </div>
             <div className="qrcode-image">
               <QRCode
-                size={240}
+                size={200}
                 value={`https://jimei.website?grade=${grade}`}
               />
             </div>
@@ -124,4 +125,4 @@ function App() {
 
 export default App;
 
-// https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ac3baea53cef467&redirect_uri=http%3a%2f%2fjimei.website%3fmoduleKey%3d01&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+// https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ac3baea53cef467&redirect_uri=https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9765-444033-1301636502.cos-website.ap-guangzhou.myqcloud.com%3fmoduleKey%3d02&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect

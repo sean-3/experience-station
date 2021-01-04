@@ -188,17 +188,14 @@
   border: 1px solid #63c3db;
   border-radius: 10px;
   width: 70%;
-  margin: 40px auto;
+  margin: 30px auto;
   padding: 40px 20px;
 }
 
 .qrcode-tip {
-  width: 60%;
+  width: 160px;
   margin: 0 auto 30px auto;
   line-height: 24px;
   font-size: 14px;
   font-weight: bold;
-}
-
-.qrcode-image {
 }
