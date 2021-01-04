@@ -117,7 +117,7 @@ function App() {
                   onClick={() => {
                     if (!experiencedModules.includes(item.key)) {
                       window.wx.scanQRCode({
-                        needResult: 1,
+                        // needResult: 1,
                         scanType: ["qrCode", "barCode"],
                         success: function (res) {
                           // const resultStr = decodeURIComponent(res.resultStr);
