@@ -34,9 +34,6 @@ function App() {
       (res) => {
         if (res.resultStatus) {
           const { appId, timestamp, nonceStr, signature } = res.resultData;
-          console.log(appId);
-          console.log(timestamp);
-          console.log(timestamp);
           window.wx.config({
             appId: appId,
             timestamp: timestamp.toString(), // 必填，生成签名的时间戳
