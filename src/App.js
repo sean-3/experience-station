@@ -25,7 +25,9 @@ function App() {
   }, [code]);
 
   useEffect(() => {
-    getSignature(encodeURI(window.location.href.split("#")[0])).then((res) => {
+    getSignature(
+      "https://coding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com/"
+    ).then((res) => {
       if (res.resultStatus) {
         window.wx.config({
           debug: true,
