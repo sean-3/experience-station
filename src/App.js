@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     getSignature(
-      "https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com"
+      "https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com%2f"
     ).then((res) => {
       if (res.resultStatus) {
         window.wx.config({
