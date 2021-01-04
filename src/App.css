@@ -110,6 +110,7 @@
   border-radius: 15px;
   font-size: 14px;
   top: 30px;
+  font-weight: bold;
   margin: 30px auto 80px auto;
 }
 
@@ -172,13 +173,13 @@
 .actions .am-button {
   height: 36px;
   line-height: 36px;
-  width: 120px;
-  border-radius: 20px;
+  width: 40%;
+  border-radius: 18px;
   font-weight: bold;
 }
 
-.actions .am-button::before {
-  border: 0 !important;
+.actions a.am-button::before {
+  display: none;
 }
 
 .qrcode-container {

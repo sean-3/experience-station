@@ -7,7 +7,6 @@ import nostarIcon from "./assets/nostar.png";
 import logo from "./assets/logo.png";
 import { moduleList, getQueryVariable, unique } from "./util";
 import { getUseInfo, getSignature } from "./service";
-import wx from "weixin-js-sdk";
 import "./App.css";
 
 function App() {
@@ -30,9 +29,10 @@ function App() {
       "https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com"
     ).then((res) => {
       if (res.resultStatus) {
-        wx.config({
+        window.wx.config({
           debug: true,
           ...res.resultData,
+          jsApiList: ["scanQRCode"],
         });
       }
     });
@@ -50,18 +50,22 @@ function App() {
   const handleOk = () => {
     let res = "";
     if (_experiencedModules.length > 10) {
-      res = "pefect";
+      res = "优秀";
     } else if (_experiencedModules.length > 8) {
-      res = "good";
+      res = "良好";
     } else if (_experiencedModules.length > 6) {
-      res = "pass";
+      res = "及格";
     } else {
-      res = "nopass";
+      res = "不及格";
     }
     setGrade(res);
     localStorage.setItem("grade", res);
     setVisible(false);
   };
+
+  const experiencedModuleNames = moduleList
+    .filter((i) => experiencedModules.includes(i.key))
+    .map((n) => n.title);
 
   return (
     <div className="App">
@@ -91,7 +95,9 @@ function App() {
             <div className="qrcode-image">
               <QRCode
                 size={200}
-                value={`https://jimei.website?grade=${grade}`}
+                value={`${nickname}#${experiencedModuleNames.join(
+                  "#"
+                )}#${grade}`}
               />
             </div>
           </div>
@@ -104,7 +110,7 @@ function App() {
                   key={item.key}
                   onClick={() => {
                     if (!experiencedModules.includes(item.key)) {
-                      wx.scanQRCode({
+                      window.wx.scanQRCode({
                         needResult: 0,
                         scanType: ["qrCode", "barCode"],
                         success: function (res) {
