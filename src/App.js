@@ -10,14 +10,16 @@ import { getUseInfo, getSignature } from "./service";
 import "./App.css";
 
 function App() {
+  const code = getQueryVariable("code");
+
   const [visible, setVisible] = useState(false);
   const [grade, setGrade] = useState(localStorage.getItem("grade"));
   const [nickname, setNickname] = useState(
     localStorage.getItem("nickname") || ""
   );
-  const currentKey = getQueryVariable("moduleKey");
-  const code = getQueryVariable("code");
 
+  const [experiencedModules, setExperiencedModules] = useState(JSON.parse(localStorage.getItem("experiencedModules")) || []);
+  
   useEffect(() => {
     if (!nickname) {
       getUseInfo(code).then((res) => {
@@ -47,22 +49,26 @@ function App() {
     );
   }, []);
 
-  let experiencedModules =
-    JSON.parse(localStorage.getItem("experiencedModules")) || [];
+  const updateModules = (k) =>{
+    const _experiencedModules = JSON.stringify(unique(experiencedModules.push(k)));
+    localStorage.setItem("experiencedModules", _experiencedModules);
+    setExperiencedModules(_experiencedModules)
+  }
 
-  experiencedModules.push(currentKey);
+  useEffect(() => {
+    const currentKey = getQueryVariable("moduleKey");
+    updateModules(currentKey)
+  }, []);
 
-  const _experiencedModules = JSON.stringify(unique(experiencedModules));
 
-  localStorage.setItem("experiencedModules", _experiencedModules);
 
   const handleOk = () => {
     let res = "";
-    if (_experiencedModules.length > 10) {
+    if (experiencedModules.length > 10) {
       res = "优秀";
-    } else if (_experiencedModules.length > 8) {
+    } else if (experiencedModules.length > 8) {
       res = "良好";
-    } else if (_experiencedModules.length > 6) {
+    } else if (experiencedModules.length > 6) {
       res = "及格";
     } else {
       res = "不及格";
@@ -111,10 +117,12 @@ function App() {
                   onClick={() => {
                     if (!experiencedModules.includes(item.key)) {
                       window.wx.scanQRCode({
-                        needResult: 0,
+                        needResult: 1,
                         scanType: ["qrCode", "barCode"],
                         success: function (res) {
-                          console.log(res.resultStr);
+                          const resultStr = decodeURIComponent(res.resultStr);
+                          const k= getQueryVariable(resultStr.split("?")[1])
+                          updateModules(k)
                         },
                       });
                     }

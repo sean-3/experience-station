@@ -1,5 +1,4 @@
-export const getQueryVariable = (variable) => {
-  const query = window.location.search.substring(1);
+export const getQueryVariable = (variable, query= window.location.search.substring(1)) => {
   const vars = query.split("&");
   for (let i = 0; i < vars.length; i++) {
     const pair = vars[i].split("=");
@@ -9,6 +8,7 @@ export const getQueryVariable = (variable) => {
   }
   return false;
 };
+
 
 export const unique = (arr) => {
   return Array.from(new Set(arr));
