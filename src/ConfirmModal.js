@@ -11,23 +11,15 @@ export default ({ visible, handleClose, handleOk }) => {
       maskClosable={false}
       onClose={handleClose}
       title="东莞厚街平安便民服务站"
-      footer={[
-        {
-          text: <Button>确定</Button>,
-          onPress: () => {
-            handleOk();
-          },
-        },
-        {
-          text: <Button>取消</Button>,
-          onPress: () => {
-            handleClose();
-          },
-        },
-      ]}
       afterClose={() => {}}
     >
-      <div className="modal-content">确定生成体验报告？</div>
+      <div className="modal-content">
+        <div className="confirm-text">确定生成体验报告？</div>
+        <div className="actions">
+          <Button onClick={() => handleOk()}>确定</Button>
+          <Button onClick={() => handleClose()}>取消</Button>
+        </div>
+      </div>
     </Modal>
   );
 };

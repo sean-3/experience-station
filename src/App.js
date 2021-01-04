@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "antd-mobile";
 import QRCode from "qrcode.react";
 import ConfirmModal from "./ConfirmModal";
@@ -6,15 +6,41 @@ import starIcon from "./assets/star.png";
 import nostarIcon from "./assets/nostar.png";
 import logo from "./assets/logo.png";
 import { moduleList, getQueryVariable, unique } from "./util";
+import { getUseInfo, getSignature } from "./service";
+import wx from "weixin-js-sdk";
 import "./App.css";
 
 function App() {
   const [visible, setVisible] = useState(false);
   const [grade, setGrade] = useState(localStorage.getItem("grade"));
+  const [nickname, setNickname] = useState("");
+  const currentKey = getQueryVariable("moduleKey");
+  const code = getQueryVariable("code");
+
+  useEffect(() => {
+    getUseInfo(code).then((res) => {
+      if (res.resultData) {
+        setNickname(res.resultData.nickname);
+      }
+    });
+  }, [code]);
+
+  useEffect(() => {
+    getSignature(
+      "https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com"
+    ).then((res) => {
+      if (res.resultStatus) {
+        wx.config({
+          debug: true,
+          ...res.resultData,
+        });
+      }
+    });
+  }, []);
 
   let experiencedModules =
     JSON.parse(localStorage.getItem("experiencedModules")) || [];
-  const currentKey = getQueryVariable("moduleKey");
+
   experiencedModules.push(currentKey);
 
   const _experiencedModules = JSON.stringify(unique(experiencedModules));
@@ -50,10 +76,11 @@ function App() {
         </div>
         <div className="App-slogan">
           体育路警务工作站 <br />
-          欢迎您，mingzi~
+          欢迎您，{nickname}
         </div>
         <div className="App-tip">注：点亮展项卡片，积分拿礼品</div>
       </header>
+
       <div className="content">
         {grade ? (
           <div className="qrcode-container">
@@ -72,7 +99,21 @@ function App() {
           <div>
             {moduleList.map((item) => {
               return (
-                <div className="module" key={item.key}>
+                <div
+                  className="module"
+                  key={item.key}
+                  onClick={() => {
+                    if (!experiencedModules.includes(item.key)) {
+                      wx.scanQRCode({
+                        needResult: 0,
+                        scanType: ["qrCode", "barCode"],
+                        success: function (res) {
+                          console.log(res.resultStr);
+                        },
+                      });
+                    }
+                  }}
+                >
                   <div className="module-title">
                     <span>{item.title}</span>
                   </div>

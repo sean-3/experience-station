@@ -162,26 +162,23 @@
   color: #fff;
 }
 
-.c-modal .am-modal-button,
-.c-modal .am-modal-button-active {
-  width: 120px !important;
-  height: 36px;
-  margin: 30px 0 50px 0;
+.actions {
+  padding: 40px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.c-modal .am-modal-button .am-button,
-.c-modal .am-modal-button .am-button-active {
+.actions .am-button {
   height: 36px;
   line-height: 36px;
-  width: 120px !important;
-  margin: 0 auto;
+  width: 120px;
   border-radius: 20px;
   font-weight: bold;
 }
 
-.c-modal .am-modal-button-group-h::before,
-.am-modal-button-group-h .am-modal-button:last-child::before {
-  display: none !important;
+.actions .am-button::before {
+  border: 0 !important;
 }
 
 .qrcode-container {
