@@ -50,14 +50,14 @@ function App() {
   }, []);
 
   const updateModules = (k) =>{
-    const _experiencedModules = JSON.stringify(unique(experiencedModules.push(k)));
+    const _experiencedModules = JSON.stringify(unique([...experiencedModules, k]));
     localStorage.setItem("experiencedModules", _experiencedModules);
     setExperiencedModules(_experiencedModules)
   }
 
   useEffect(() => {
     const currentKey = getQueryVariable("moduleKey");
-    updateModules(currentKey)
+    if(currentKey) updateModules(currentKey)
   }, []);
 
 

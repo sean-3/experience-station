@@ -6,7 +6,7 @@ export const getQueryVariable = (variable, query= window.location.search.substri
       return pair[1];
     }
   }
-  return false;
+  return '';
 };
 
 
