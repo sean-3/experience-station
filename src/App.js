@@ -120,9 +120,9 @@ function App() {
                         needResult: 1,
                         scanType: ["qrCode", "barCode"],
                         success: function (res) {
-                          const resultStr = decodeURIComponent(res.resultStr);
-                          const k= getQueryVariable('moduleKey', resultStr.split("?")[2])
-                          updateModules(k)
+                          // const resultStr = decodeURIComponent(res.resultStr);
+                          // const k= getQueryVariable('moduleKey', resultStr.split("?")[2])
+                          // updateModules(k)
                         },
                       });
                     }
