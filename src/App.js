@@ -15,7 +15,6 @@ function App() {
   const code = getQueryVariable("code");
   const station = getQueryVariable("station");
   const currentKey = getQueryVariable("moduleKey");
-
   const [visible, setVisible] = useState(false);
   const [grade, setGrade] = useState(localStorage.getItem("grade"));
   const [nickname, setNickname] = useState(
@@ -98,7 +97,7 @@ function App() {
           厚街分局
         </div>
         <div className="App-slogan">
-          体育路警务工作站 <br />
+          {station ? "神仙水公园警务工作站" : "体育路警务工作站"} <br />
           欢迎您，{nickname}
         </div>
         <div className="App-tip">注：点亮展项卡片，积分拿礼品</div>
@@ -116,16 +115,33 @@ function App() {
                 <QRCode size={180} value={`${nickname}#${grade}`} />
               </div>
             </div>
-            <Button
-              className="re-experience"
-              size="small"
-              onClick={() => {
-                localStorage.setItem("grade", "");
-                setGrade("");
-              }}
-            >
-              继续体验
-            </Button>
+            <div className="re-experience">
+              <Button
+                className="re-experience-btn"
+                size="small"
+                onClick={() => {
+                  localStorage.setItem("grade", "");
+                  setGrade("");
+                }}
+              >
+                继续体验
+              </Button>
+              <Button
+                className="re-experience-btn"
+                size="small"
+                onClick={() => {
+                  localStorage.setItem("grade", "");
+                  localStorage.setItem(
+                    "experiencedModules",
+                    JSON.stringify([])
+                  );
+                  setGrade("");
+                  setExperiencedModules([]);
+                }}
+              >
+                重新体验
+              </Button>
+            </div>
           </>
         ) : (
           <>

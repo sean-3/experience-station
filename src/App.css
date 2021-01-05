@@ -177,12 +177,17 @@
   border-radius: 18px;
   font-weight: bold;
 }
-
 .re-experience {
+  width: 240px;
+  margin: 30px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.re-experience-btn {
   height: 36px;
   line-height: 38px;
-  width: 210px;
-  margin: 30px auto;
+  width: 100px;
 }
 
 .actions a.am-button::before {
