@@ -102,15 +102,27 @@ function App() {
 
       <div className="content">
         {grade ? (
-          <div className="qrcode-container">
-            <div className="qrcode-tip">
-              完整的体验报告已生成 <br />
-              请至前台扫描二维码获取
+          <>
+            <div className="qrcode-container">
+              <div className="qrcode-tip">
+                完整的体验报告已生成 <br />
+                请至前台扫描二维码获取
+              </div>
+              <div className="qrcode-image">
+                <QRCode size={200} value={`${nickname}#${grade}`} />
+              </div>
             </div>
-            <div className="qrcode-image">
-              <QRCode size={200} value={`${nickname}#${grade}`} />
-            </div>
-          </div>
+            <Button
+              className="re-experience"
+              size="small"
+              onClick={() => {
+                localStorage.setItem("grade", "");
+                setGrade("");
+              }}
+            >
+              再次体验
+            </Button>
+          </>
         ) : (
           <div>
             {moduleList.map((item) => {
@@ -119,20 +131,18 @@ function App() {
                   className="module"
                   key={item.key}
                   onClick={() => {
-                    if (!experiencedModules.includes(item.key)) {
-                      window.wx.scanQRCode({
-                        needResult: 1,
-                        scanType: ["qrCode", "barCode"],
-                        success: function (res) {
-                          const resultStr = decodeURIComponent(res.resultStr);
-                          const k = getQueryVariable(
-                            "moduleKey",
-                            resultStr.split("?")[2]
-                          );
-                          updateModules(k);
-                        },
-                      });
-                    }
+                    window.wx.scanQRCode({
+                      needResult: 1,
+                      scanType: ["qrCode", "barCode"],
+                      success: function (res) {
+                        const resultStr = decodeURIComponent(res.resultStr);
+                        const k = getQueryVariable(
+                          "moduleKey",
+                          resultStr.split("?")[2]
+                        );
+                        updateModules(k);
+                      },
+                    });
                   }}
                 >
                   <div className="module-title">

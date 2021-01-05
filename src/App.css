@@ -178,6 +178,13 @@
   font-weight: bold;
 }
 
+.re-experience {
+  height: 36px;
+  line-height: 36px;
+  width: 240px;
+  margin: 20px auto;
+}
+
 .actions a.am-button::before {
   display: none;
 }
@@ -186,8 +193,8 @@
   border: 1px solid #63c3db;
   border-radius: 10px;
   width: 70%;
-  margin: 30px auto;
-  padding: 40px 20px;
+  margin: 20px auto;
+  padding: 20px;
 }
 
 .qrcode-tip {
@@ -199,7 +206,7 @@
 }
 
 .qrcode-image {
-  margin:20px auto 0 auto;
+  margin: 20px auto 0 auto;
   width: 220px;
   padding: 10px;
   background: #fff;
