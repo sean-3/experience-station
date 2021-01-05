@@ -181,8 +181,8 @@
 .re-experience {
   height: 36px;
   line-height: 38px;
-  width: 240px;
-  margin: 20px auto;
+  width: 210px;
+  margin: 30px auto;
 }
 
 .actions a.am-button::before {
@@ -197,17 +197,17 @@
   padding: 20px;
 }
 
+.qrcode-image {
+  margin: 20px auto 10px auto;
+  width: 192px;
+  padding: 10px;
+  background: #fff;
+}
+
 .qrcode-tip {
   width: 160px;
   margin: 0 auto;
   line-height: 24px;
   font-size: 14px;
   font-weight: bold;
-}
-
-.qrcode-image {
-  margin: 20px auto 0 auto;
-  width: 220px;
-  padding: 10px;
-  background: #fff;
 }

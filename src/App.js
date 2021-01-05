@@ -113,7 +113,7 @@ function App() {
                 请至前台扫描二维码获取
               </div>
               <div className="qrcode-image">
-                <QRCode size={200} value={`${nickname}#${grade}`} />
+                <QRCode size={180} value={`${nickname}#${grade}`} />
               </div>
             </div>
             <Button
