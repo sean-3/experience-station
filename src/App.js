@@ -18,8 +18,10 @@ function App() {
     localStorage.getItem("nickname") || ""
   );
 
-  const [experiencedModules, setExperiencedModules] = useState(JSON.parse(localStorage.getItem("experiencedModules")) || []);
-  
+  const [experiencedModules, setExperiencedModules] = useState(
+    JSON.parse(localStorage.getItem("experiencedModules")) || []
+  );
+
   useEffect(() => {
     if (!nickname) {
       getUseInfo(code).then((res) => {
@@ -49,18 +51,18 @@ function App() {
     );
   }, []);
 
-  const updateModules = (k) =>{
-    const _experiencedModules = JSON.stringify(unique([...experiencedModules, k]));
+  const updateModules = (k) => {
+    const _experiencedModules = JSON.stringify(
+      unique([...experiencedModules, k])
+    );
     localStorage.setItem("experiencedModules", _experiencedModules);
-    setExperiencedModules(_experiencedModules)
-  }
+    setExperiencedModules(_experiencedModules);
+  };
 
   useEffect(() => {
     const currentKey = getQueryVariable("moduleKey");
-    if(currentKey) updateModules(currentKey)
+    if (currentKey) updateModules(currentKey);
   }, []);
-
-
 
   const handleOk = () => {
     let res = "";
@@ -117,12 +119,17 @@ function App() {
                   onClick={() => {
                     if (!experiencedModules.includes(item.key)) {
                       window.wx.scanQRCode({
-                        // needResult: 1,
+                        needResult: 1,
                         scanType: ["qrCode", "barCode"],
                         success: function (res) {
-                          // const resultStr = decodeURIComponent(res.resultStr);
-                          // const k= getQueryVariable('moduleKey', resultStr.split("?")[2])
-                          // updateModules(k)
+                          const resultStr = decodeURIComponent(res.resultStr);
+                          alert(resultStr);
+                          const k = getQueryVariable(
+                            "moduleKey",
+                            resultStr.split("?")[2]
+                          );
+                          alert(k);
+                          updateModules(k);
                         },
                       });
                     }
