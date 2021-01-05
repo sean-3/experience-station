@@ -5,7 +5,7 @@ import ConfirmModal from "./ConfirmModal";
 import starIcon from "./assets/star.png";
 import nostarIcon from "./assets/nostar.png";
 import logo from "./assets/logo.png";
-import { moduleList, getQueryVariable, unique } from "./util";
+import { getModuleList, getQueryVariable, unique } from "./util";
 import { getUseInfo, getSignature } from "./service";
 import "./App.css";
 
@@ -13,6 +13,9 @@ import "./App.css";
 
 function App() {
   const code = getQueryVariable("code");
+  const station = getQueryVariable("station");
+  const currentKey = getQueryVariable("moduleKey");
+
   const [visible, setVisible] = useState(false);
   const [grade, setGrade] = useState(localStorage.getItem("grade"));
   const [nickname, setNickname] = useState(
@@ -53,7 +56,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const currentKey = getQueryVariable("moduleKey");
     if (currentKey) updateModules(currentKey);
   }, []);
 
@@ -81,6 +83,8 @@ function App() {
     localStorage.setItem("grade", res);
     setVisible(false);
   };
+
+  const moduleList = getModuleList(station);
 
   return (
     <div className="App">
@@ -120,7 +124,7 @@ function App() {
                 setGrade("");
               }}
             >
-              再次体验
+              继续体验
             </Button>
           </>
         ) : (
