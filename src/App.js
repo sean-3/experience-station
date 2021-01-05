@@ -9,7 +9,7 @@ import { getModuleList, getQueryVariable, unique } from "./util";
 import { getUseInfo, getSignature } from "./service";
 import "./App.css";
 
-// https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ac3baea53cef467&redirect_uri=https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com%3fmoduleKey%3d02&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+// https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ac3baea53cef467&redirect_uri=https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com%2f%3fmoduleKey%3d01%26station%3dsxs&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
 
 function App() {
   const code = getQueryVariable("code");
@@ -128,54 +128,56 @@ function App() {
             </Button>
           </>
         ) : (
-          <div>
-            {moduleList.map((item) => {
-              return (
-                <div
-                  className="module"
-                  key={item.key}
-                  onClick={() => {
-                    window.wx.scanQRCode({
-                      needResult: 1,
-                      scanType: ["qrCode", "barCode"],
-                      success: function (res) {
-                        const resultStr = decodeURIComponent(res.resultStr);
-                        const k = getQueryVariable(
-                          "moduleKey",
-                          resultStr.split("?")[2]
-                        );
-                        updateModules(k);
-                      },
-                    });
-                  }}
-                >
-                  <div className="module-title">
-                    <span>{item.title}</span>
+          <>
+            <div style={{ position: "relative", overflow: "auto" }}>
+              {moduleList.map((item) => {
+                return (
+                  <div
+                    className="module"
+                    key={item.key}
+                    onClick={() => {
+                      window.wx.scanQRCode({
+                        needResult: 1,
+                        scanType: ["qrCode", "barCode"],
+                        success: function (res) {
+                          const resultStr = decodeURIComponent(res.resultStr);
+                          const k = getQueryVariable(
+                            "moduleKey",
+                            resultStr.split("?")[2]
+                          );
+                          updateModules(k);
+                        },
+                      });
+                    }}
+                  >
+                    <div className="module-title">
+                      <span>{item.title}</span>
+                    </div>
+                    <div className="opration">
+                      <img
+                        src={
+                          experiencedModules.includes(item.key)
+                            ? starIcon
+                            : nostarIcon
+                        }
+                        className="status-icon"
+                        alt="icon"
+                      />
+                      <Button
+                        className={`status-btn ${
+                          experiencedModules.includes(item.key) ? "active" : ""
+                        }`}
+                        size="small"
+                      >
+                        {experiencedModules.includes(item.key)
+                          ? " 已点亮"
+                          : "扫一扫点亮"}
+                      </Button>
+                    </div>
                   </div>
-                  <div className="opration">
-                    <img
-                      src={
-                        experiencedModules.includes(item.key)
-                          ? starIcon
-                          : nostarIcon
-                      }
-                      className="status-icon"
-                      alt="icon"
-                    />
-                    <Button
-                      className={`status-btn ${
-                        experiencedModules.includes(item.key) ? "active" : ""
-                      }`}
-                      size="small"
-                    >
-                      {experiencedModules.includes(item.key)
-                        ? " 已点亮"
-                        : "扫一扫点亮"}
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
             <Button
               className="submit-btn"
               onClick={() => {
@@ -184,7 +186,7 @@ function App() {
             >
               结束展馆体验
             </Button>
-          </div>
+          </>
         )}
       </div>
 
