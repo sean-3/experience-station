@@ -31,7 +31,7 @@ export const getModuleList = (station = "wd") => {
       { key: "10", title: "辖区警情分析" },
       { key: "11", title: "交通知识普及" },
       { key: "12", title: "AR警员互动" },
-      { key: "12", title: "打架斗殴与寻衅滋事的危害" },
+      { key: "13", title: "打架斗殴与寻衅滋事的危害" },
     ];
   }
 
