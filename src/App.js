@@ -13,7 +13,6 @@ import "./App.css";
 
 function App() {
   const code = getQueryVariable("code");
-
   const [visible, setVisible] = useState(false);
   const [grade, setGrade] = useState(localStorage.getItem("grade"));
   const [nickname, setNickname] = useState(
@@ -53,18 +52,19 @@ function App() {
     );
   }, []);
 
-  const updateModules = (k) => {
-    const _experiencedModules = JSON.stringify(
-      unique([...experiencedModules, k])
-    );
-    localStorage.setItem("experiencedModules", _experiencedModules);
-    setExperiencedModules(_experiencedModules);
-  };
-
   useEffect(() => {
     const currentKey = getQueryVariable("moduleKey");
     if (currentKey) updateModules(currentKey);
   }, []);
+
+  const updateModules = (k) => {
+    const _experiencedModules = unique([...experiencedModules, k]);
+    localStorage.setItem(
+      "experiencedModules",
+      JSON.stringify(_experiencedModules)
+    );
+    setExperiencedModules(_experiencedModules);
+  };
 
   const handleOk = () => {
     let res = "";
