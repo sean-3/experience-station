@@ -9,6 +9,8 @@ import { moduleList, getQueryVariable, unique } from "./util";
 import { getUseInfo, getSignature } from "./service";
 import "./App.css";
 
+// https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ac3baea53cef467&redirect_uri=https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com%3fmoduleKey%3d02&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+
 function App() {
   const code = getQueryVariable("code");
 
@@ -123,12 +125,10 @@ function App() {
                         scanType: ["qrCode", "barCode"],
                         success: function (res) {
                           const resultStr = decodeURIComponent(res.resultStr);
-                          alert(resultStr);
                           const k = getQueryVariable(
                             "moduleKey",
                             resultStr.split("?")[2]
                           );
-                          alert(k);
                           updateModules(k);
                         },
                       });
@@ -186,5 +186,3 @@ function App() {
 }
 
 export default App;
-
-// https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6ac3baea53cef467&redirect_uri=https%3a%2f%2fcoding-pages-bucket-3413143-8194751-9772-444098-1301636502.cos-website.ap-guangzhou.myqcloud.com%3fmoduleKey%3d02&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
