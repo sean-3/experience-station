@@ -67,6 +67,7 @@
 .module.active {
   border: 2px solid #9febe0;
   box-shadow: 5px 5px 10px 5px rgba(0, 255, 235, 0.3)
+  
 }
 
 .module .module-title {
