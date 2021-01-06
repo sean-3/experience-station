@@ -147,9 +147,10 @@ function App() {
           <>
             <div style={{ position: "relative", overflow: "auto" }}>
               {moduleList.map((item) => {
+                const  isActive = experiencedModules.includes(item.key)
                 return (
                   <div
-                    className="module"
+                    className={`module ${isActive ? "active" : ""}`}
                     key={item.key}
                     onClick={() => {
                       window.wx.scanQRCode({
@@ -167,27 +168,19 @@ function App() {
                     }}
                   >
                     <div className="module-title">
-                      <span>{item.title}</span>
+                      <span  className={`${isActive ? "active" : ""}`}>{item.title}</span>
                     </div>
                     <div className="opration">
                       <img
-                        src={
-                          experiencedModules.includes(item.key)
-                            ? starIcon
-                            : nostarIcon
-                        }
+                        src={isActive ? starIcon : nostarIcon }
                         className="status-icon"
                         alt="icon"
                       />
                       <Button
-                        className={`status-btn ${
-                          experiencedModules.includes(item.key) ? "active" : ""
-                        }`}
+                        className={`status-btn ${isActive ? "active" : ""}`}
                         size="small"
                       >
-                        {experiencedModules.includes(item.key)
-                          ? " 已点亮"
-                          : "扫一扫点亮"}
+                        {isActive? " 已点亮" : "扫一扫点亮"}
                       </Button>
                     </div>
                   </div>
